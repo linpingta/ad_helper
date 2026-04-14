@@ -1,21 +1,21 @@
 {
   "id": "PRD-LoRA-AdCreative",
-  "name": "LoRA\u8f7b\u91cf\u5fae\u8c03\u5e7f\u544a\u521b\u610f\u6587\u6848\u751f\u6210\u7cfb\u7edf",
+  "name": "LoRA轻量微调广告创意文案生成系统",
   "version": "1.0.0",
-  "description": "\u57fa\u4e8eLoRA\u8f7b\u91cf\u5fae\u8c03\u6280\u672f\u7684\u5e7f\u544a\u521b\u610f\u6587\u6848\u751f\u6210\u7cfb\u7edf\uff0c\u652f\u6301\u884c\u4e1a\u4e13\u5c5e\u9ad8\u8f6c\u5316\u5e7f\u544a\u6587\u6848\u751f\u6210\uff0c\u517c\u5bb9GPU/CPU\u53cc\u65b9\u6848\u8fd0\u884c",
+  "description": "基于LoRA轻量微调技术的广告创意文案生成系统，支持行业专属高转化广告文案生成，兼容GPU/CPU双方案运行",
   "stories": [
     {
       "id": "US001",
-      "title": "\u4e0a\u4f20\u914d\u5bf9\u6570\u636e\u96c6",
-      "description": "\u7528\u6237\u53ef\u4e0a\u4f20JSON\u6216JSONL\u683c\u5f0f\u7684<\u4f4eCTR\u2192\u9ad8CTR>\u914d\u5bf9\u6570\u636e\u96c6\uff0c\u7cfb\u7edf\u9a8c\u8bc1\u6570\u636e\u683c\u5f0f\u548c\u5fc5\u8981\u5b57\u6bb5",
+      "title": "上传配对数据集",
+      "description": "用户可上传JSON或JSONL格式的<低CTR→高CTR>配对数据集，系统验证数据格式和必要字段",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u4e0a\u4f20.json\u548c.jsonl\u683c\u5f0f\u6587\u4ef6",
-        "\u4e0a\u4f20\u6587\u4ef6\u5927\u5c0f\u4e0d\u8d85\u8fc7500MB",
-        "\u7cfb\u7edf\u9a8c\u8bc1\u6570\u636e\u5305\u542bsource_content\uff08\u4f4eCTR\u539f\u6587\uff09\u548ctarget_content\uff08\u9ad8CTR\u4f18\u5316\u6587\uff09\u4e24\u4e2a\u5fc5\u586b\u5b57\u6bb5",
-        "\u4e0a\u4f20\u6210\u529f\u7387100%\uff0c\u5931\u8d25\u65f6\u8fd4\u56de\u660e\u786e\u9519\u8bef\u4fe1\u606f",
-        "\u652f\u6301\u6269\u5c55\u5b57\u6bb5\uff1aindustry_tag\uff08\u884c\u4e1a\u6807\u7b7e\uff09\u3001copy_type\uff08\u6587\u6848\u7c7b\u578b\uff09"
+        "支持上传.json和.jsonl格式文件",
+        "上传文件大小不超过500MB",
+        "系统验证数据包含source_content（低CTR原文）和target_content（高CTR优化文）两个必填字段",
+        "上传成功率100%，失败时返回明确错误信息",
+        "支持扩展字段：industry_tag（行业标签）、copy_type（文案类型）"
       ],
       "status": "in_progress",
       "startedAt": "2026-04-14T13:56:19.776998+00:00",
@@ -24,388 +24,388 @@
     },
     {
       "id": "US002",
-      "title": "\u6e05\u6d17\u914d\u5bf9\u6570\u636e\u96c6",
-      "description": "\u7cfb\u7edf\u81ea\u52a8\u5254\u9664\u91cd\u590d\u6570\u636e\u3001\u9519\u522b\u5b57\u6570\u636e\u3001\u8fdd\u89c4\u6570\u636e\u548c\u566a\u97f3\u6570\u636e",
+      "title": "清洗配对数据集",
+      "description": "系统自动剔除重复数据、错别字数据、违规数据和噪音数据",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u81ea\u52a8\u68c0\u6d4b\u5e76\u5254\u9664\u5b8c\u5168\u91cd\u590d\u7684\u6570\u636e\u6761\u76ee",
-        "\u68c0\u6d4b\u5e76\u5254\u9664\u5305\u542b\u5e7f\u544a\u6cd5\u7981\u7528\u8bcd\u7684\u6570\u636e",
-        "\u68c0\u6d4b\u5e76\u5254\u9664source\u548ctarget\u5185\u5bb9\u76f8\u540c\u7684\u6570\u636e",
-        "\u6e05\u6d17\u540e\u6570\u636e\u51c6\u786e\u7387\u226599%",
-        "\u652f\u6301\u624b\u52a8\u7f16\u8f91\u548c\u7b5b\u9009\u6570\u636e\u96c6\u5185\u5bb9"
+        "自动检测并剔除完全重复的数据条目",
+        "检测并剔除包含广告法禁用词的数据",
+        "检测并剔除source和target内容相同的数据",
+        "清洗后数据准确率≥99%",
+        "支持手动编辑和筛选数据集内容"
       ]
     },
     {
       "id": "US003",
-      "title": "\u62c6\u5206\u8bad\u7ec3\u96c6\u548c\u9a8c\u8bc1\u96c6",
-      "description": "\u7cfb\u7edf\u6309\u9884\u8bbe\u6bd4\u4f8b\u81ea\u52a8\u62c6\u5206\u8bad\u7ec3\u96c6\u4e0e\u9a8c\u8bc1\u96c6\uff0c\u652f\u6301\u6bd4\u4f8b\u8c03\u6574",
+      "title": "拆分训练集和验证集",
+      "description": "系统按预设比例自动拆分训练集与验证集，支持比例调整",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u9ed8\u8ba4\u62c6\u5206\u6bd4\u4f8b\u4e3a8:2\uff08\u8bad\u7ec3\u96c6:\u9a8c\u8bc1\u96c6\uff09",
-        "\u652f\u6301\u7528\u6237\u81ea\u5b9a\u4e49\u62c6\u5206\u6bd4\u4f8b\uff08\u8303\u56f41:9\u81f39:1\uff09",
-        "\u62c6\u5206\u8fc7\u7a0b\u53ef\u8ffd\u6eaf\uff0c\u62c6\u5206\u8bb0\u5f55\u53ef\u67e5\u8be2",
-        "\u62c6\u5206\u540e\u8bad\u7ec3\u96c6\u548c\u9a8c\u8bc1\u96c6\u65e0\u4ea4\u96c6",
-        "\u652f\u6301\u91cd\u65b0\u62c6\u5206\u800c\u4e0d\u4e22\u5931\u539f\u59cb\u6570\u636e"
+        "默认拆分比例为8:2（训练集:验证集）",
+        "支持用户自定义拆分比例（范围1:9至9:1）",
+        "拆分过程可追溯，拆分记录可查询",
+        "拆分后训练集和验证集无交集",
+        "支持重新拆分而不丢失原始数据"
       ]
     },
     {
       "id": "US004",
-      "title": "\u8f6c\u6362\u6570\u636e\u96c6\u683c\u5f0f",
-      "description": "\u5c06\u539f\u59cb\u6570\u636e\u96c6\u8f6c\u6362\u4e3a\u6a21\u578b\u5fae\u8c03\u6240\u9700\u7684\u6807\u51c6Chat messages\u683c\u5f0f",
+      "title": "转换数据集格式",
+      "description": "将原始数据集转换为模型微调所需的标准Chat messages格式",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u8f6c\u6362\u4e3a\u6307\u5b9a\u5fae\u8c03\u6846\u67b6\u8981\u6c42\u7684\u683c\u5f0f\uff08\u5982ChatML\u683c\u5f0f\uff09",
-        "\u8f6c\u6362\u540e\u6570\u636e\u53ef\u76f4\u63a5\u7528\u4e8eLoRA\u5fae\u8c03",
-        "\u8f6c\u6362\u8fc7\u7a0b\u65e0\u6570\u636e\u4e22\u5931",
-        "\u652f\u6301\u9884\u89c8\u8f6c\u6362\u540e\u7684\u6570\u636e\u6837\u4f8b",
-        "\u8f6c\u6362\u5931\u8d25\u65f6\u660e\u786e\u63d0\u793a\u9519\u8bef\u4f4d\u7f6e\u548c\u539f\u56e0"
+        "转换为指定微调框架要求的格式（如ChatML格式）",
+        "转换后数据可直接用于LoRA微调",
+        "转换过程无数据丢失",
+        "支持预览转换后的数据样例",
+        "转换失败时明确提示错误位置和原因"
       ]
     },
     {
       "id": "US005",
-      "title": "\u52a0\u8f7d\u57fa\u5ea7\u6a21\u578bQwen3-0.6B",
-      "description": "\u7cfb\u7edf\u652f\u6301\u52a0\u8f7dQwen3-0.6B\u4f5c\u4e3a\u57fa\u5ea7\u6a21\u578b\uff0c\u652f\u6301GPU/CPU\u81ea\u52a8\u68c0\u6d4b",
+      "title": "加载基座模型Qwen3-0.6B",
+      "description": "系统支持加载Qwen3-0.6B作为基座模型，支持GPU/CPU自动检测",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u52a0\u8f7dQwen3-0.6B\u6a21\u578b",
-        "\u81ea\u52a8\u68c0\u6d4bGPU/CPU\u8fd0\u884c\u73af\u5883",
-        "\u652f\u6301\u7528\u6237\u6307\u5b9a\u672c\u5730\u6a21\u578b\u8def\u5f84",
-        "\u6a21\u578b\u52a0\u8f7d\u6210\u529f\u7387100%\uff0c\u5931\u8d25\u6709\u660e\u786e\u63d0\u793a",
-        "\u652f\u6301\u6a21\u578b\u8def\u5f84\u914d\u7f6e\u548c\u5207\u6362"
+        "支持加载Qwen3-0.6B模型",
+        "自动检测GPU/CPU运行环境",
+        "支持用户指定本地模型路径",
+        "模型加载成功率100%，失败有明确提示",
+        "支持模型路径配置和切换"
       ]
     },
     {
       "id": "US006",
-      "title": "\u914d\u7f6eLoRA\u5fae\u8c03\u53c2\u6570",
-      "description": "\u7528\u6237\u53ef\u914d\u7f6eLoRA\u6838\u5fc3\u5fae\u8c03\u53c2\u6570\uff0c\u53c2\u6570\u914d\u7f6e\u53ef\u4fdd\u5b58\u4e3a\u6a21\u677f",
+      "title": "配置LoRA微调参数",
+      "description": "用户可配置LoRA核心微调参数，参数配置可保存为模板",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u53ef\u914d\u7f6e\u4f4e\u79e9\u7ef4\u5ea6r\uff08\u9ed8\u8ba48\uff0c\u652f\u63014\u300116\u7b49\uff09",
-        "\u53ef\u914d\u7f6e\u7f29\u653e\u7cfb\u6570\u03b1\uff08\u9ed8\u8ba416\uff09",
-        "\u53ef\u914d\u7f6edropout\u503c\uff08\u9ed8\u8ba40.1\uff0c\u652f\u63010.05\u81f30.3\uff09",
-        "\u53ef\u914d\u7f6e\u76ee\u6807\u6a21\u5757\uff08\u9ed8\u8ba4Q\u3001K\u3001V\u6295\u5f71\u5c42\uff09",
-        "\u53ef\u914d\u7f6e\u5b66\u4e60\u7387\uff08\u9ed8\u8ba41e-4\uff09\u3001\u8bad\u7ec3\u8f6e\u6b21\u3001\u6279\u6b21\u5927\u5c0f",
-        "\u53c2\u6570\u914d\u7f6e\u53ef\u4fdd\u5b58\u4e3a\u6a21\u677f\u5e76\u590d\u7528",
-        "\u652f\u6301\u52a0\u8f7d\u5df2\u6709\u53c2\u6570\u6a21\u677f"
+        "可配置低秩维度r（默认8，支持4、16等）",
+        "可配置缩放系数α（默认16）",
+        "可配置dropout值（默认0.1，支持0.05至0.3）",
+        "可配置目标模块（默认Q、K、V投影层）",
+        "可配置学习率（默认1e-4）、训练轮次、批次大小",
+        "参数配置可保存为模板并复用",
+        "支持加载已有参数模板"
       ]
     },
     {
       "id": "US007",
-      "title": "\u6267\u884cGPU\u6a21\u5f0f\u5fae\u8c03\u6d41\u7a0b",
-      "description": "\u5728GPU\u73af\u5883\u4e0b\u6267\u884c\u81ea\u52a8\u5316\u5fae\u8c03\u6d41\u7a0b\uff0c\u652f\u6301QLoRA\u91cf\u5316",
+      "title": "执行GPU模式微调流程",
+      "description": "在GPU环境下执行自动化微调流程，支持QLoRA量化",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u81ea\u52a8\u68c0\u6d4bGPU\u53ef\u7528\u6027\u5e76\u9009\u62e9GPU\u6a21\u5f0f",
-        "\u663e\u5b58\u22658GB\u65f6\u4f7f\u7528\u6807\u51c6LoRA\u5fae\u8c03",
-        "\u663e\u5b58\u22654GB\u65f6\u53ef\u542f\u7528QLoRA 4-bit\u91cf\u5316",
-        "\u5b9e\u65f6\u663e\u793a\u8bad\u7ec3\u8fdb\u5ea6\uff08\u767e\u5206\u6bd4\uff09",
-        "\u5b9e\u65f6\u663e\u793a\u635f\u5931\u503c\u53d8\u5316\u66f2\u7ebf",
-        "\u8bad\u7ec3\u8fc7\u7a0b\u65e0\u5d29\u6e83\u3001\u65e0\u663e\u5b58\u6ea2\u51fa"
+        "自动检测GPU可用性并选择GPU模式",
+        "显存≥8GB时使用标准LoRA微调",
+        "显存≥4GB时可启用QLoRA 4-bit量化",
+        "实时显示训练进度（百分比）",
+        "实时显示损失值变化曲线",
+        "训练过程无崩溃、无显存溢出"
       ]
     },
     {
       "id": "US008",
-      "title": "\u6267\u884cCPU\u6a21\u5f0f\u5fae\u8c03\u6d41\u7a0b",
-      "description": "\u5728\u65e0GPU\u73af\u5883\u4e0b\u6267\u884cCPU\u5fae\u8c03\uff0c\u81ea\u52a8\u8c03\u6574\u6279\u6b21\u5927\u5c0f",
+      "title": "执行CPU模式微调流程",
+      "description": "在无GPU环境下执行CPU微调，自动调整批次大小",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u65e0GPU\u65f6\u81ea\u52a8\u5207\u6362\u81f3CPU\u6a21\u5f0f",
-        "\u81ea\u52a8\u964d\u4f4e\u6279\u6b21\u5927\u5c0f\u4ee5\u9002\u5e94CPU\u5185\u5b58",
-        "\u8bad\u7ec3\u65f6\u95f4\u9884\u8ba112-24\u5c0f\u65f6\uff08500\u6761\u6570\u636e\uff09",
-        "\u652f\u6301\u8bad\u7ec3\u4e2d\u65ad\u6062\u590d",
-        "\u5b9e\u65f6\u663e\u793a\u8bad\u7ec3\u8fdb\u5ea6\u548c\u635f\u5931\u503c",
-        "\u5185\u5b58\u5360\u7528\u8fc7\u9ad8\u65f6\u6709\u660e\u786e\u8b66\u544a"
+        "无GPU时自动切换至CPU模式",
+        "自动降低批次大小以适应CPU内存",
+        "训练时间预计12-24小时（500条数据）",
+        "支持训练中断恢复",
+        "实时显示训练进度和损失值",
+        "内存占用过高时有明确警告"
       ]
     },
     {
       "id": "US009",
-      "title": "\u542f\u7528QLoRA\u91cf\u5316\u5fae\u8c03",
-      "description": "\u7cfb\u7edf\u652f\u6301QLoRA\u91cf\u5316\uff084-bit\u7cbe\u5ea6\uff09\uff0c\u964d\u4f4e\u663e\u5b58\u5360\u7528",
+      "title": "启用QLoRA量化微调",
+      "description": "系统支持QLoRA量化（4-bit精度），降低显存占用",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u63014-bit\u91cf\u5316\u914d\u7f6e",
-        "24GB\u663e\u5b58\u663e\u5361\u53ef\u5b8c\u6210\u5fae\u8c03",
-        "4GB\u663e\u5b58\u73af\u5883\u53ef\u901a\u8fc7QLoRA\u5b8c\u6210\u5fae\u8c03",
-        "\u91cf\u5316\u540e\u6a21\u578b\u8d28\u91cf\u65e0\u660e\u663e\u4e0b\u964d",
-        "\u91cf\u5316\u914d\u7f6e\u4e0e\u6807\u51c6LoRA\u914d\u7f6e\u53ef\u5207\u6362"
+        "支持4-bit量化配置",
+        "24GB显存显卡可完成微调",
+        "4GB显存环境可通过QLoRA完成微调",
+        "量化后模型质量无明显下降",
+        "量化配置与标准LoRA配置可切换"
       ]
     },
     {
       "id": "US010",
-      "title": "\u4fdd\u5b58\u5e76\u5bfc\u51fa\u5fae\u8c03\u6a21\u578b",
-      "description": "\u5fae\u8c03\u5b8c\u6210\u540e\u652f\u6301\u4fdd\u5b58LoRA\u9002\u914d\u5668\u6743\u91cd\u53ca\u5b8c\u6574\u6a21\u578b",
+      "title": "保存并导出微调模型",
+      "description": "微调完成后支持保存LoRA适配器权重及完整模型",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u4fdd\u5b58LoRA\u9002\u914d\u5668\u6743\u91cd\u6587\u4ef6",
-        "\u652f\u6301\u5bfc\u51fa\u4e3a\u901a\u7528\u683c\u5f0f",
-        "\u5bfc\u51fa\u7684\u6a21\u578b\u53ef\u6b63\u5e38\u52a0\u8f7d\u63a8\u7406",
-        "\u652f\u6301\u6a21\u578b\u6743\u91cd\u5408\u5e76\u529f\u80fd",
-        "\u5408\u5e76\u540e\u63a8\u7406\u6548\u7387\u63d0\u5347\u226520%"
+        "保存LoRA适配器权重文件",
+        "支持导出为通用格式",
+        "导出的模型可正常加载推理",
+        "支持模型权重合并功能",
+        "合并后推理效率提升≥20%"
       ]
     },
     {
       "id": "US011",
-      "title": "GPU\u6a21\u5f0f\u751f\u6210\u5e7f\u544a\u6587\u6848",
-      "description": "GPU\u73af\u5883\u4e0b\u5feb\u901f\u751f\u6210\u7b26\u5408\u884c\u4e1a\u98ce\u683c\u7684\u5e7f\u544a\u6587\u6848",
+      "title": "GPU模式生成广告文案",
+      "description": "GPU环境下快速生成符合行业风格的广告文案",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u5355\u6761\u6587\u6848\u751f\u6210\u65f6\u95f4\u22643\u79d2\uff08GPU\u6a21\u5f0f\uff09",
-        "\u751f\u6210\u6587\u6848\u65e0\u8bed\u6cd5\u9519\u8bef",
-        "\u884c\u4e1a\u672f\u8bed\u4f7f\u7528\u51c6\u786e",
-        "\u5356\u70b9\u63d0\u70bc\u6e05\u6670\u3001\u8f6c\u5316\u5bfc\u5411\u660e\u786e",
-        "\u652f\u6301\u6307\u5b9a\u6587\u6848\u957f\u5ea6\u548c\u4fa7\u91cd\u70b9"
+        "单条文案生成时间≤3秒（GPU模式）",
+        "生成文案无语法错误",
+        "行业术语使用准确",
+        "卖点提炼清晰、转化导向明确",
+        "支持指定文案长度和侧重点"
       ]
     },
     {
       "id": "US012",
-      "title": "CPU\u6a21\u5f0f\u751f\u6210\u5e7f\u544a\u6587\u6848",
-      "description": "CPU\u73af\u5883\u4e0b\u751f\u6210\u5e7f\u544a\u6587\u6848\uff0c\u81ea\u52a8\u4f18\u5316\u63a8\u7406\u901f\u5ea6",
+      "title": "CPU模式生成广告文案",
+      "description": "CPU环境下生成广告文案，自动优化推理速度",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u5355\u6761\u6587\u6848\u751f\u6210\u65f6\u95f4\u226430\u79d2\uff08CPU\u6a21\u5f0f\uff09",
-        "\u751f\u6210\u6587\u6848\u8d28\u91cf\u4e0eGPU\u6a21\u5f0f\u4e00\u81f4",
-        "\u5185\u5b58\u5360\u7528\u226470%",
-        "\u652f\u6301\u91cf\u5316\u63a8\u7406\u52a0\u901f"
+        "单条文案生成时间≤30秒（CPU模式）",
+        "生成文案质量与GPU模式一致",
+        "内存占用≤70%",
+        "支持量化推理加速"
       ]
     },
     {
       "id": "US013",
-      "title": "\u6279\u91cf\u751f\u6210\u5e7f\u544a\u6587\u6848",
-      "description": "\u652f\u6301\u4e00\u6b21\u6027\u8f93\u5165\u591a\u4e2a\u6587\u6848\u9700\u6c42\uff0c\u6279\u91cf\u751f\u6210\u5e7f\u544a\u6587\u6848",
+      "title": "批量生成广告文案",
+      "description": "支持一次性输入多个文案需求，批量生成广告文案",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u540c\u65f6\u8f93\u5165\u226450\u4e2a\u6587\u6848\u9700\u6c42",
-        "GPU\u6a21\u5f0f50\u6761\u6587\u6848\u6279\u91cf\u751f\u6210\u65f6\u95f4\u2264100\u79d2",
-        "CPU\u6a21\u5f0f50\u6761\u6587\u6848\u6279\u91cf\u751f\u6210\u65f6\u95f4\u2264500\u79d2",
-        "\u652f\u6301\u226410\u6761\u5e76\u53d1\u751f\u6210\uff0c\u65e0\u62a5\u9519",
-        "\u751f\u6210\u7ed3\u679c\u53ef\u5bfc\u51fa\u4e3aExcel\u6216TXT\u683c\u5f0f"
+        "支持同时输入≤50个文案需求",
+        "GPU模式50条文案批量生成时间≤100秒",
+        "CPU模式50条文案批量生成时间≤500秒",
+        "支持≤10条并发生成，无报错",
+        "生成结果可导出为Excel或TXT格式"
       ]
     },
     {
       "id": "US014",
-      "title": "\u4fdd\u969c\u6587\u6848\u98ce\u683c\u4e00\u81f4\u6027",
-      "description": "\u751f\u6210\u7684\u6587\u6848\u4fdd\u6301\u9ad8\u5ea6\u7edf\u4e00\u7684\u884c\u4e1a\u98ce\u683c\uff0c\u65e0\u98ce\u683c\u6df7\u4e71",
+      "title": "保障文案风格一致性",
+      "description": "生成的文案保持高度统一的行业风格，无风格混乱",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u540c\u4e00\u884c\u4e1a\u6587\u6848\u98ce\u683c\u4e00\u81f4\u6027\u226595%",
-        "\u8bed\u6c14\u3001\u53e5\u5f0f\u4fdd\u6301\u7edf\u4e00",
-        "\u5356\u70b9\u7ed3\u6784\u7b26\u5408\u76ee\u6807\u884c\u4e1a\u89c4\u8303",
-        "\u65e0\u660e\u663e\u98ce\u683c\u7a81\u53d8\u6216\u6df7\u4e71\u73b0\u8c61",
-        "\u884c\u4e1a\u672f\u8bed\u4f7f\u7528\u51c6\u786e\u7387\u226598%"
+        "同一行业文案风格一致性≥95%",
+        "语气、句式保持统一",
+        "卖点结构符合目标行业规范",
+        "无明显风格突变或混乱现象",
+        "行业术语使用准确率≥98%"
       ]
     },
     {
       "id": "US015",
-      "title": "\u4e2a\u6027\u5316\u8c03\u6574\u751f\u6210\u6587\u6848",
-      "description": "\u7528\u6237\u53ef\u5bf9\u751f\u6210\u7684\u6587\u6848\u8fdb\u884c\u624b\u52a8\u7f16\u8f91\u548c\u4e8c\u6b21\u4f18\u5316",
+      "title": "个性化调整生成文案",
+      "description": "用户可对生成的文案进行手动编辑和二次优化",
       "priority": 3,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u5728\u7ebf\u7f16\u8f91\u751f\u6210\u7684\u6587\u6848",
-        "\u7f16\u8f91\u540e\u7684\u6587\u6848\u53ef\u4fdd\u5b58",
-        "\u53ef\u5c06\u4f18\u5316\u540e\u7684<\u751f\u6210\u6587\u6848\u2192\u4eba\u5de5\u4f18\u5316\u6587\u6848>\u8865\u5145\u81f3\u6570\u636e\u96c6",
-        "\u8865\u5145\u6570\u636e\u53ef\u7528\u4e8e\u4e8c\u6b21\u5fae\u8c03"
+        "支持在线编辑生成的文案",
+        "编辑后的文案可保存",
+        "可将优化后的<生成文案→人工优化文案>补充至数据集",
+        "补充数据可用于二次微调"
       ]
     },
     {
       "id": "US016",
-      "title": "\u914d\u7f6e\u5206\u5c42\u5b66\u4e60\u7387",
-      "description": "\u652f\u6301\u4e3a\u4e0d\u540c\u77e9\u9635\u8bbe\u7f6e\u5dee\u5f02\u5316\u5b66\u4e60\u7387",
+      "title": "配置分层学习率",
+      "description": "支持为不同矩阵设置差异化学习率",
       "priority": 3,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u4e0d\u540c\u5c42\u8bbe\u7f6e\u4e0d\u540c\u5b66\u4e60\u7387",
-        "\u8bad\u7ec3\u7a33\u5b9a\u6027\u63d0\u5347",
-        "\u6536\u655b\u901f\u5ea6\u7b26\u5408\u9884\u671f",
-        "\u914d\u7f6e\u53c2\u6570\u53ef\u4fdd\u5b58\u4e3a\u6a21\u677f"
+        "支持不同层设置不同学习率",
+        "训练稳定性提升",
+        "收敛速度符合预期",
+        "配置参数可保存为模板"
       ]
     },
     {
       "id": "US017",
-      "title": "\u7528\u6237\u767b\u5f55\u8ba4\u8bc1",
-      "description": "\u652f\u6301\u5355\u7528\u6237\u767b\u5f55\uff0c\u8bbe\u7f6e\u767b\u5f55\u5bc6\u7801\u4fdd\u969c\u7cfb\u7edf\u5b89\u5168",
+      "title": "用户登录认证",
+      "description": "支持单用户登录，设置登录密码保障系统安全",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u8bbe\u7f6e\u767b\u5f55\u5bc6\u7801",
-        "\u5bc6\u7801\u4fee\u6539\u540e\u5373\u65f6\u751f\u6548",
-        "\u652f\u6301\u7528\u6237\u4fe1\u606f\u7f16\u8f91",
-        "\u767b\u5f55\u5931\u8d253\u6b21\u540e\u9501\u5b9a5\u5206\u949f",
-        "\u652f\u6301\u767b\u51fa\u529f\u80fd"
+        "支持设置登录密码",
+        "密码修改后即时生效",
+        "支持用户信息编辑",
+        "登录失败3次后锁定5分钟",
+        "支持登出功能"
       ]
     },
     {
       "id": "US018",
-      "title": "\u67e5\u8be2\u548c\u5bfc\u51fa\u7cfb\u7edf\u65e5\u5fd7",
-      "description": "\u7cfb\u7edf\u8bb0\u5f55\u64cd\u4f5c\u65e5\u5fd7\u548c\u8bad\u7ec3\u65e5\u5fd7\uff0c\u652f\u6301\u67e5\u8be2\u548c\u5bfc\u51fa",
+      "title": "查询和导出系统日志",
+      "description": "系统记录操作日志和训练日志，支持查询和导出",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u8bb0\u5f55\u6570\u636e\u96c6\u4e0a\u4f20\u65e5\u5fd7",
-        "\u8bb0\u5f55\u5fae\u8c03\u64cd\u4f5c\u65e5\u5fd7\uff08\u542b\u53c2\u6570\u3001\u65f6\u95f4\u3001\u635f\u5931\u503c\u3001\u8fd0\u884c\u6a21\u5f0fGPU/CPU\uff09",
-        "\u8bb0\u5f55\u6587\u6848\u751f\u6210\u65e5\u5fd7",
-        "\u65e5\u5fd7\u53ef\u6309\u65f6\u95f4\u8303\u56f4\u67e5\u8be2",
-        "\u65e5\u5fd7\u53ef\u5bfc\u51fa\u4e3a\u6587\u4ef6"
+        "记录数据集上传日志",
+        "记录微调操作日志（含参数、时间、损失值、运行模式GPU/CPU）",
+        "记录文案生成日志",
+        "日志可按时间范围查询",
+        "日志可导出为文件"
       ]
     },
     {
       "id": "US019",
-      "title": "\u7ba1\u7406\u5fae\u8c03\u6a21\u578b",
-      "description": "\u5bf9\u5df2\u5fae\u8c03\u7684\u6a21\u578b\u8fdb\u884c\u5206\u7c7b\u4fdd\u5b58\u3001\u547d\u540d\u3001\u5220\u9664\u3001\u67e5\u770b\u8be6\u60c5",
+      "title": "管理微调模型",
+      "description": "对已微调的模型进行分类保存、命名、删除、查看详情",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u5bf9\u6a21\u578b\u8fdb\u884c\u547d\u540d",
-        "\u652f\u6301\u6309\u884c\u4e1a\u5206\u7c7b\u4fdd\u5b58",
-        "\u652f\u6301\u67e5\u770b\u6a21\u578b\u8be6\u60c5\uff08\u5fae\u8c03\u53c2\u6570\u3001\u884c\u4e1a\u3001\u8bad\u7ec3\u65f6\u95f4\u3001\u8fd0\u884c\u6a21\u5f0f\uff09",
-        "\u652f\u6301\u5220\u9664\u6a21\u578b",
-        "\u652f\u6301\u5feb\u901f\u5207\u6362\u8c03\u7528\u4e0d\u540c\u884c\u4e1a\u6a21\u578b"
+        "支持对模型进行命名",
+        "支持按行业分类保存",
+        "支持查看模型详情（微调参数、行业、训练时间、运行模式）",
+        "支持删除模型",
+        "支持快速切换调用不同行业模型"
       ]
     },
     {
       "id": "US020",
-      "title": "\u5c55\u793a\u6548\u679c\u622a\u56fe",
-      "description": "\u7cfb\u7edf\u754c\u9762\u652f\u6301\u622a\u56fe\u5c55\u793a\uff0c\u5305\u542b\u5173\u952e\u529f\u80fd\u754c\u9762",
+      "title": "展示效果截图",
+      "description": "系统界面支持截图展示，包含关键功能界面",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u6570\u636e\u96c6\u4e0a\u4f20\u754c\u9762\u622a\u56fe\u5c55\u793a",
-        "\u652f\u6301\u5fae\u8c03\u8bad\u7ec3\u754c\u9762\u622a\u56fe\uff08\u542b\u635f\u5931\u66f2\u7ebf\u3001\u8fdb\u5ea6\u6761\uff09",
-        "\u652f\u6301\u6587\u6848\u751f\u6210\u754c\u9762\u622a\u56fe\uff08\u542b\u539f\u59cb\u9700\u6c42\u3001\u751f\u6210\u7ed3\u679c\uff09",
-        "\u652f\u6301\u6a21\u578b\u7ba1\u7406\u754c\u9762\u622a\u56fe\uff08\u542b\u6a21\u578b\u5217\u8868\u3001\u8be6\u60c5\uff09",
-        "\u652f\u6301\u8bc4\u4f30\u6307\u6807\u754c\u9762\u622a\u56fe\uff08\u542bBLEU\u3001ROUGE\u503c\uff09"
+        "支持数据集上传界面截图展示",
+        "支持微调训练界面截图（含损失曲线、进度条）",
+        "支持文案生成界面截图（含原始需求、生成结果）",
+        "支持模型管理界面截图（含模型列表、详情）",
+        "支持评估指标界面截图（含BLEU、ROUGE值）"
       ]
     },
     {
       "id": "US021",
-      "title": "\u672c\u5730\u90e8\u7f72\u7cfb\u7edf",
-      "description": "\u63d0\u4f9b\u672c\u5730\u90e8\u7f72\u6559\u7a0b\uff0c\u652f\u6301\u7528\u6237\u5728\u672c\u5730\u73af\u5883\u90e8\u7f72\u7cfb\u7edf",
+      "title": "本地部署系统",
+      "description": "提供本地部署教程，支持用户在本地环境部署系统",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u63d0\u4f9bWindows\u7cfb\u7edf\u90e8\u7f72\u6559\u7a0b",
-        "\u63d0\u4f9bLinux\u7cfb\u7edf\u90e8\u7f72\u6559\u7a0b",
-        "\u672c\u5730\u90e8\u7f72\u540e\u7cfb\u7edf\u529f\u80fd\u5b8c\u6574\u53ef\u7528",
-        "\u63d0\u4f9b\u90e8\u7f72\u95ee\u9898\u6392\u67e5\u6307\u5f15",
-        "GPU\u65b9\u6848\uff1a\u666e\u901a\u4e2a\u4eba\u7535\u8111\uff08i5+16GB\u5185\u5b58+8GB\u663e\u5b58\uff09\u53ef\u6b63\u5e38\u8fd0\u884c",
-        "CPU\u65b9\u6848\uff1a\u666e\u901a\u4e2a\u4eba\u7535\u8111\uff08i5+16GB\u5185\u5b58\uff09\u53ef\u6b63\u5e38\u8fd0\u884c"
+        "提供Windows系统部署教程",
+        "提供Linux系统部署教程",
+        "本地部署后系统功能完整可用",
+        "提供部署问题排查指引",
+        "GPU方案：普通个人电脑（i5+16GB内存+8GB显存）可正常运行",
+        "CPU方案：普通个人电脑（i5+16GB内存）可正常运行"
       ]
     },
     {
       "id": "US022",
-      "title": "\u5fae\u8c03\u6548\u679c\u81ea\u52a8\u8bc4\u4f30",
-      "description": "\u4f7f\u7528BLEU\u3001ROUGE\u7b49\u6307\u6807\u8bc4\u4f30\u751f\u6210\u6587\u6848\u8d28\u91cf",
+      "title": "微调效果自动评估",
+      "description": "使用BLEU、ROUGE等指标评估生成文案质量",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u81ea\u52a8\u8ba1\u7b97BLEU\u503c\u22650.6",
-        "\u81ea\u52a8\u8ba1\u7b97ROUGE-L\u503c\u22650.7",
-        "\u8bc4\u4f30\u7ed3\u679c\u4f18\u4e8e\u7eafPrompt\u751f\u6210\u7ed3\u679c",
-        "\u8bc4\u4f30\u62a5\u544a\u53ef\u5bfc\u51fa"
+        "自动计算BLEU值≥0.6",
+        "自动计算ROUGE-L值≥0.7",
+        "评估结果优于纯Prompt生成结果",
+        "评估报告可导出"
       ]
     },
     {
       "id": "US023",
-      "title": "\u9a8c\u8bc1\u6cdb\u5316\u80fd\u529b",
-      "description": "\u4f7f\u7528\u672a\u53c2\u4e0e\u5fae\u8c03\u7684\u6d4b\u8bd5\u96c6\u9a8c\u8bc1\u6a21\u578b\u6cdb\u5316\u80fd\u529b",
+      "title": "验证泛化能力",
+      "description": "使用未参与微调的测试集验证模型泛化能力",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u6d4b\u8bd5\u96c6\u6587\u6848\u8d28\u91cf\u4e0e\u8bad\u7ec3\u96c6\u4e00\u81f4",
-        "\u6d4b\u8bd5\u96c6\u51c6\u786e\u7387\u226585%",
-        "\u539f\u59cb\u6a21\u578b\u57fa\u7840\u80fd\u529b\u4fdd\u7559\u7387\u226590%",
-        "\u65e0\u660e\u663e\u8fc7\u62df\u5408\u73b0\u8c61"
+        "测试集文案质量与训练集一致",
+        "测试集准确率≥85%",
+        "原始模型基础能力保留率≥90%",
+        "无明显过拟合现象"
       ]
     },
     {
       "id": "US024",
-      "title": "\u76d1\u63a7\u8d44\u6e90\u5360\u7528",
-      "description": "\u76d1\u63a7\u5fae\u8c03\u548c\u751f\u6210\u8fc7\u7a0b\u4e2d\u7684CPU/GPU\u3001\u5185\u5b58\u5360\u7528",
+      "title": "监控资源占用",
+      "description": "监控微调和生成过程中的CPU/GPU、内存占用",
       "priority": 3,
       "passes": false,
       "acceptanceCriteria": [
-        "GPU\u6a21\u5f0f\uff1aGPU\u5360\u7528\u226480%",
-        "CPU\u6a21\u5f0f\uff1a\u5185\u5b58\u5360\u7528\u226470%",
-        "\u8d44\u6e90\u5360\u7528\u5f02\u5e38\u65f6\u6709\u544a\u8b66\u63d0\u793a",
-        "\u652f\u6301\u67e5\u770b\u5b9e\u65f6\u8d44\u6e90\u5360\u7528\u56fe\u8868"
+        "GPU模式：GPU占用≤80%",
+        "CPU模式：内存占用≤70%",
+        "资源占用异常时有告警提示",
+        "支持查看实时资源占用图表"
       ]
     },
     {
       "id": "US025",
-      "title": "\u6570\u636e\u5b89\u5168\u4fdd\u969c",
-      "description": "\u786e\u4fdd\u6570\u636e\u96c6\u548c\u6a21\u578b\u4ec5\u4fdd\u5b58\u5728\u672c\u5730\uff0c\u4fdd\u969c\u6570\u636e\u5b89\u5168",
+      "title": "数据安全保障",
+      "description": "确保数据集和模型仅保存在本地，保障数据安全",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u6570\u636e\u96c6\u4ec5\u4fdd\u5b58\u5728\u672c\u5730\uff0c\u65e0\u4e91\u7aef\u4e0a\u4f20\u884c\u4e3a",
-        "\u652f\u6301\u6570\u636e\u96c6\u52a0\u5bc6\u4fdd\u5b58",
-        "\u6a21\u578b\u652f\u6301\u5bc6\u7801\u4fdd\u62a4",
-        "\u5f02\u5e38\u64cd\u4f5c\u6709\u660e\u786e\u63d0\u793a"
+        "数据集仅保存在本地，无云端上传行为",
+        "支持数据集加密保存",
+        "模型支持密码保护",
+        "异常操作有明确提示"
       ]
     },
     {
       "id": "US026",
-      "title": "\u7cfb\u7edf\u7a33\u5b9a\u6027\u9a8c\u8bc1",
-      "description": "\u9a8c\u8bc1\u7cfb\u7edf\u8fde\u7eed\u8fd0\u884c\u7684\u7a33\u5b9a\u6027",
+      "title": "系统稳定性验证",
+      "description": "验证系统连续运行的稳定性",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "GPU\u6a21\u5f0f\u8fde\u7eed\u8fd0\u884c24\u5c0f\u65f6\u65e0\u5d29\u6e83",
-        "CPU\u6a21\u5f0f\u8fde\u7eed\u8fd0\u884c24\u5c0f\u65f6\u65e0\u5d29\u6e83",
-        "\u6570\u636e\u96c6\u4e0a\u4f20\u3001\u5fae\u8c03\u3001\u751f\u6210\u64cd\u4f5c\u6210\u529f\u7387\u226599%",
-        "\u5f02\u5e38\u60c5\u51b5\u6709\u660e\u786e\u63d0\u793a"
+        "GPU模式连续运行24小时无崩溃",
+        "CPU模式连续运行24小时无崩溃",
+        "数据集上传、微调、生成操作成功率≥99%",
+        "异常情况有明确提示"
       ]
     },
     {
       "id": "US027",
-      "title": "\u8de8\u5e73\u53f0\u517c\u5bb9\u6027\u9a8c\u8bc1",
-      "description": "\u9a8c\u8bc1\u7cfb\u7edf\u5728Windows\u548cLinux\u7cfb\u7edf\u4e0a\u7684\u517c\u5bb9\u6027",
+      "title": "跨平台兼容性验证",
+      "description": "验证系统在Windows和Linux系统上的兼容性",
       "priority": 2,
       "passes": false,
       "acceptanceCriteria": [
-        "\u5728Windows 10/11\u7cfb\u7edf\u6b63\u5e38\u8fd0\u884c",
-        "\u5728Ubuntu 20.04\u53ca\u4ee5\u4e0a\u7cfb\u7edf\u6b63\u5e38\u8fd0\u884c",
-        "\u65e0\u517c\u5bb9\u6027\u62a5\u9519"
+        "在Windows 10/11系统正常运行",
+        "在Ubuntu 20.04及以上系统正常运行",
+        "无兼容性报错"
       ]
     },
     {
       "id": "US028",
-      "title": "\u81ea\u52a8\u5207\u6362\u8fd0\u884c\u6a21\u5f0f",
-      "description": "\u7cfb\u7edf\u6839\u636e\u786c\u4ef6\u73af\u5883\u81ea\u52a8\u9009\u62e9GPU/CPU\u6a21\u5f0f",
+      "title": "自动切换运行模式",
+      "description": "系统根据硬件环境自动选择GPU/CPU模式",
       "priority": 1,
       "passes": false,
       "acceptanceCriteria": [
-        "\u542f\u52a8\u65f6\u81ea\u52a8\u68c0\u6d4bGPU\u662f\u5426\u53ef\u7528",
-        "GPU\u53ef\u7528\u65f6\u9ed8\u8ba4\u4f7f\u7528GPU\u6a21\u5f0f",
-        "GPU\u4e0d\u53ef\u7528\u65f6\u81ea\u52a8\u5207\u6362\u81f3CPU\u6a21\u5f0f",
-        "\u7528\u6237\u53ef\u624b\u52a8\u5207\u6362\u8fd0\u884c\u6a21\u5f0f",
-        "\u6a21\u5f0f\u5207\u6362\u4e0d\u5f71\u54cd\u5df2\u4fdd\u5b58\u7684\u6a21\u578b"
+        "启动时自动检测GPU是否可用",
+        "GPU可用时默认使用GPU模式",
+        "GPU不可用时自动切换至CPU模式",
+        "用户可手动切换运行模式",
+        "模式切换不影响已保存的模型"
       ]
     },
     {
       "id": "US029",
-      "title": "\u4f7f\u7528MiniMax API\u8865\u5145\u751f\u6210",
-      "description": "\u7528\u6237\u53ef\u914d\u7f6eMiniMax API\u4f5c\u4e3a\u8865\u5145\u751f\u6210\u80fd\u529b",
+      "title": "使用MiniMax API补充生成",
+      "description": "用户可配置MiniMax API作为补充生成能力",
       "priority": 3,
       "passes": false,
       "acceptanceCriteria": [
-        "\u652f\u6301\u914d\u7f6eMiniMax API\u5bc6\u94a5",
-        "\u652f\u6301\u4f7f\u7528MiniMax API\u751f\u6210\u6587\u6848",
-        "API\u8c03\u7528\u5931\u8d25\u65f6\u6709\u660e\u786e\u63d0\u793a",
-        "\u652f\u6301API\u4f7f\u7528\u91cf\u7edf\u8ba1"
+        "支持配置MiniMax API密钥",
+        "支持使用MiniMax API生成文案",
+        "API调用失败时有明确提示",
+        "支持API使用量统计"
       ]
     }
   ]

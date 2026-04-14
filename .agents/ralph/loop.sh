@@ -563,13 +563,13 @@ with prd_path.open("r+", encoding="utf-8") as fh:
                 block_lines.extend([f"- [ ] {item}" for item in acceptance])
             else:
                 block_lines.append("- (none)")
-            block_out.write_text("\n".join(block_lines, encoding="utf-8").rstrip() + "\n")
+            block_out.write_text("\n".join(block_lines).rstrip() + "\n", encoding="utf-8")
         else:
             block_out.write_text("", encoding="utf-8")
 
         fh.seek(0)
         fh.truncate()
-        json.dump(data, fh, indent=2)
+        json.dump(data, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
         fh.flush()
         os.fsync(fh.fileno())
@@ -577,7 +577,7 @@ with prd_path.open("r+", encoding="utf-8") as fh:
         if fcntl is not None:
             fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
 
-meta_out.write_text(json.dumps(meta, indent=2, encoding="utf-8") + "\n")
+meta_out.write_text(json.dumps(meta, indent=2, ensure_ascii=False, encoding="utf-8") + "\n")
 PY
 }
 
@@ -695,7 +695,7 @@ with prd_path.open("r+", encoding="utf-8") as fh:
                 break
         fh.seek(0)
         fh.truncate()
-        json.dump(data, fh, indent=2)
+        json.dump(data, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
         fh.flush()
         os.fsync(fh.fileno())
@@ -745,7 +745,7 @@ if not inserted:
         "## Events",
         "",
     ] + text
-Path(path).write_text("\n".join(out, encoding="utf-8").rstrip() + "\n")
+Path(path).write_text("\n".join(out).rstrip() + "\n", encoding="utf-8")
 PY
 }
 
