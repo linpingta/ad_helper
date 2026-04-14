@@ -1,0 +1,347 @@
+{
+  "id": "PRD-LoRA-AdCreative",
+  "name": "LoRA轻量微调广告创意文案生成系统",
+  "version": "1.0.0",
+  "description": "基于LoRA轻量微调技术的广告创意文案生成系统，支持行业专属高转化广告文案生成",
+  "userStories": [
+    {
+      "id": "US001",
+      "title": "上传配对数据集",
+      "description": "用户可上传JSON或JSONL格式的<低CTR→高CTR>配对数据集，系统验证数据格式和必要字段",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持上传.json和.jsonl格式文件",
+        "上传文件大小不超过500MB",
+        "系统验证数据包含source_content（低CTR原文）和target_content（高CTR优化文）两个必填字段",
+        "上传成功率100%，失败时返回明确错误信息",
+        "支持扩展字段：industry_tag（行业标签）、copy_type（文案类型）"
+      ]
+    },
+    {
+      "id": "US002",
+      "title": "清洗配对数据集",
+      "description": "系统自动剔除重复数据、错别字数据、违规数据和噪音数据",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "自动检测并剔除完全重复的数据条目",
+        "检测并剔除包含广告法禁用词的数据",
+        "检测并剔除source和target内容相同的数据",
+        "清洗后数据准确率≥99%",
+        "支持手动编辑和筛选数据集内容"
+      ]
+    },
+    {
+      "id": "US003",
+      "title": "拆分训练集和验证集",
+      "description": "系统按预设比例自动拆分训练集与验证集，支持比例调整",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "默认拆分比例为8:2（训练集:验证集）",
+        "支持用户自定义拆分比例（范围1:9至9:1）",
+        "拆分过程可追溯，拆分记录可查询",
+        "拆分后训练集和验证集无交集",
+        "支持重新拆分而不丢失原始数据"
+      ]
+    },
+    {
+      "id": "US004",
+      "title": "转换数据集格式",
+      "description": "将原始数据集转换为模型微调所需的标准Chat messages格式",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "转换为指定微调框架要求的格式（如ChatML格式）",
+        "转换后数据可直接用于LoRA微调",
+        "转换过程无数据丢失",
+        "支持预览转换后的数据样例",
+        "转换失败时明确提示错误位置和原因"
+      ]
+    },
+    {
+      "id": "US005",
+      "title": "加载基座模型",
+      "description": "系统支持加载主流开源LLM作为基座模型",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持加载Qwen3系列模型（优先0.6B轻量版）",
+        "支持加载Llama系列模型",
+        "支持用户指定本地模型路径",
+        "模型加载成功率100%，失败有明确提示",
+        "支持模型路径配置和切换"
+      ]
+    },
+    {
+      "id": "US006",
+      "title": "配置LoRA微调参数",
+      "description": "用户可配置LoRA核心微调参数，参数配置可保存为模板",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "可配置低秩维度r（默认8，支持4、16等）",
+        "可配置缩放系数α",
+        "可配置dropout值（默认0.1，支持0.05至0.3）",
+        "可配置目标模块（默认Q、V投影层，可扩展至MLP层）",
+        "可配置学习率（默认1e-4）、训练轮次、批次大小",
+        "参数配置可保存为模板并复用",
+        "支持加载已有参数模板"
+      ]
+    },
+    {
+      "id": "US007",
+      "title": "执行自动化微调流程",
+      "description": "用户完成数据集和参数配置后，系统自动执行完整微调流程",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "自动执行：数据加载→模型注入LoRA适配器→训练→验证→模型保存",
+        "实时显示训练进度（百分比）",
+        "实时显示损失值变化曲线",
+        "训练过程无崩溃、无卡顿",
+        "训练中断后可恢复",
+        "显存不足时有明确提示并建议优化方案"
+      ]
+    },
+    {
+      "id": "US008",
+      "title": "启用QLoRA量化微调",
+      "description": "系统支持QLoRA量化（4-bit精度），降低显存占用",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持4-bit量化配置",
+        "24GB显存显卡可完成微调",
+        "4GB显存环境可通过QLoRA完成微调",
+        "量化后模型质量无明显下降",
+        "量化配置与标准LoRA配置可切换"
+      ]
+    },
+    {
+      "id": "US009",
+      "title": "保存并导出微调模型",
+      "description": "微调完成后支持保存LoRA适配器权重及完整模型",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "保存LoRA适配器权重文件",
+        "支持导出为通用格式",
+        "导出的模型可正常加载推理",
+        "支持模型权重合并功能",
+        "合并后推理效率提升≥20%"
+      ]
+    },
+    {
+      "id": "US010",
+      "title": "生成单条广告文案",
+      "description": "用户输入文案需求，系统生成符合行业风格的广告文案",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "单条文案生成时间≤3秒",
+        "生成文案无语法错误",
+        "行业术语使用准确",
+        "卖点提炼清晰、转化导向明确",
+        "支持指定文案长度和侧重点",
+        "生成结果无冗余信息"
+      ]
+    },
+    {
+      "id": "US011",
+      "title": "批量生成广告文案",
+      "description": "支持一次性输入多个文案需求，批量生成广告文案",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持同时输入≤50个文案需求",
+        "50条文案批量生成时间≤100秒",
+        "支持≤10条并发生成，无报错",
+        "生成结果可导出为Excel或TXT格式",
+        "导出文件包含原始需求和生成文案"
+      ]
+    },
+    {
+      "id": "US012",
+      "title": "保障文案风格一致性",
+      "description": "生成的文案保持高度统一的行业风格，无风格混乱",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "同一行业文案风格一致性≥95%",
+        "语气、句式保持统一",
+        "卖点结构符合目标行业规范",
+        "无明显风格突变或混乱现象",
+        "行业术语使用准确率≥98%"
+      ]
+    },
+    {
+      "id": "US013",
+      "title": "个性化调整生成文案",
+      "description": "用户可对生成的文案进行手动编辑和二次优化",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持在线编辑生成的文案",
+        "编辑后的文案可保存",
+        "可将优化后的<生成文案→人工优化文案>补充至数据集",
+        "补充数据可用于二次微调",
+        "二次微调后生成质量提升"
+      ]
+    },
+    {
+      "id": "US014",
+      "title": "配置分层学习率",
+      "description": "支持为不同矩阵设置差异化学习率",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持不同层设置不同学习率",
+        "训练稳定性提升",
+        "收敛速度符合预期",
+        "配置参数可保存为模板"
+      ]
+    },
+    {
+      "id": "US015",
+      "title": "用户登录认证",
+      "description": "支持单用户登录，设置登录密码保障系统安全",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持设置登录密码",
+        "密码修改后即时生效",
+        "支持用户信息编辑",
+        "登录失败3次后锁定5分钟",
+        "支持登出功能"
+      ]
+    },
+    {
+      "id": "US016",
+      "title": "查询和导出系统日志",
+      "description": "系统记录操作日志和训练日志，支持查询和导出",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "记录数据集上传日志",
+        "记录微调操作日志（含参数、时间、损失值）",
+        "记录文案生成日志",
+        "日志可按时间范围查询",
+        "日志可导出为文件",
+        "日志保存时间≥30天"
+      ]
+    },
+    {
+      "id": "US017",
+      "title": "管理微调模型",
+      "description": "对已微调的模型进行分类保存、命名、删除、查看详情",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "支持对模型进行命名",
+        "支持按行业分类保存",
+        "支持查看模型详情（微调参数、行业、训练时间）",
+        "支持删除模型",
+        "支持快速切换调用不同行业模型",
+        "模型列表显示清晰、可排序"
+      ]
+    },
+    {
+      "id": "US018",
+      "title": "本地部署系统",
+      "description": "提供本地部署教程，支持用户在本地环境部署系统",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "提供Windows系统部署教程",
+        "提供Linux系统部署教程",
+        "本地部署后系统功能完整可用",
+        "提供部署问题排查指引",
+        "普通个人电脑（i5+16GB内存+8GB显存）可正常运行",
+        "无云端依赖，数据完全本地保存"
+      ]
+    },
+    {
+      "id": "US019",
+      "title": "微调效果自动评估",
+      "description": "使用BLEU、ROUGE等指标评估生成文案质量",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "自动计算BLEU值≥0.6",
+        "自动计算ROUGE-L值≥0.7",
+        "评估结果优于纯Prompt生成结果",
+        "评估报告可导出",
+        "支持人工评估辅助"
+      ]
+    },
+    {
+      "id": "US020",
+      "title": "验证泛化能力",
+      "description": "使用未参与微调的测试集验证模型泛化能力",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "测试集文案质量与训练集一致",
+        "测试集准确率≥85%",
+        "原始模型基础能力保留率≥90%",
+        "无明显过拟合现象",
+        "泛化能力评估报告可生成"
+      ]
+    },
+    {
+      "id": "US021",
+      "title": "监控资源占用",
+      "description": "监控微调和生成过程中的CPU、GPU、内存占用",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "GPU占用≤80%",
+        "内存占用≤70%",
+        "资源占用异常时有告警提示",
+        "支持查看实时资源占用图表"
+      ]
+    },
+    {
+      "id": "US022",
+      "title": "数据安全保障",
+      "description": "确保数据集和模型仅保存在本地，保障数据安全",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "数据集仅保存在本地，无云端上传行为",
+        "支持数据集加密保存",
+        "模型支持密码保护",
+        "异常操作有明确提示",
+        "删除数据后无法恢复"
+      ]
+    },
+    {
+      "id": "US023",
+      "title": "系统稳定性验证",
+      "description": "验证系统连续运行的稳定性",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "连续运行24小时无崩溃",
+        "数据集上传、微调、生成操作成功率≥99%",
+        "异常情况有明确提示",
+        "无数据丢失现象"
+      ]
+    },
+    {
+      "id": "US024",
+      "title": "跨平台兼容性验证",
+      "description": "验证系统在Windows和Linux系统上的兼容性",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "在Windows 10/11系统正常运行",
+        "在Ubuntu 20.04及以上系统正常运行",
+        "无兼容性报错",
+        "最低配置要求下可正常运行"
+      ]
+    }
+  ]
+}
