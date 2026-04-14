@@ -442,7 +442,7 @@ if len(sys.argv) > 4:
         stale_seconds = 0
 
 if not prd_path.exists():
-    meta_out.write_text(json.dumps({"ok": False, "error": "PRD not found"}, indent=2, encoding="utf-8") + "\n")
+    meta_out.write_text(json.dumps({"ok": False, "error": "PRD not found"}, indent=2) + "\n")
     block_out.write_text("", encoding="utf-8")
     sys.exit(0)
 
@@ -472,13 +472,13 @@ with prd_path.open("r+", encoding="utf-8") as fh:
         try:
             data = json.load(fh)
         except Exception as exc:
-            meta_out.write_text(json.dumps({"ok": False, "error": f"Invalid PRD JSON: {exc}"}, indent=2, encoding="utf-8") + "\n")
+            meta_out.write_text(json.dumps({"ok": False, "error": f"Invalid PRD JSON: {exc}"}, indent=2) + "\n")
             block_out.write_text("", encoding="utf-8")
             sys.exit(0)
 
         stories = data.get("stories") if isinstance(data, dict) else None
         if not isinstance(stories, list) or not stories:
-            meta_out.write_text(json.dumps({"ok": False, "error": "No stories found in PRD"}, indent=2, encoding="utf-8") + "\n")
+            meta_out.write_text(json.dumps({"ok": False, "error": "No stories found in PRD"}, indent=2) + "\n")
             block_out.write_text("", encoding="utf-8")
             sys.exit(0)
 
@@ -577,7 +577,7 @@ with prd_path.open("r+", encoding="utf-8") as fh:
         if fcntl is not None:
             fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
 
-meta_out.write_text(json.dumps(meta, indent=2, ensure_ascii=False, encoding="utf-8") + "\n")
+meta_out.write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n")
 PY
 }
 
