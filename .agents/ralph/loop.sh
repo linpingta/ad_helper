@@ -359,7 +359,13 @@ render_prompt() {
 import sys
 from pathlib import Path
 
-src = Path(sys.argv[1]).read_text(encoding='utf-8')
+def read_text_fallback(path):
+    try:
+        return Path(path).read_text(encoding='utf-8')
+    except UnicodeDecodeError:
+        return Path(path).read_text(encoding='gbk', errors='ignore')
+
+src = read_text_fallback(sys.argv[1])
 prd, agents, progress, root = sys.argv[3:7]
 guardrails = sys.argv[7]
 errors_log = sys.argv[8]
@@ -396,14 +402,14 @@ quality_gates = []
 if meta_path:
     try:
         import json
-        meta = json.loads(Path(meta_path).read_text(encoding='utf-8'))
+        meta = json.loads(read_text_fallback(meta_path))
         story["id"] = meta.get("id", "") or ""
         story["title"] = meta.get("title", "") or ""
         quality_gates = meta.get("quality_gates", []) or []
     except Exception:
         pass
 if block_path and Path(block_path).exists():
-    story["block"] = Path(block_path).read_text(encoding='utf-8')
+    story["block"] = read_text_fallback(block_path)
 repl["STORY_ID"] = story["id"]
 repl["STORY_TITLE"] = story["title"]
 repl["STORY_BLOCK"] = story["block"]
