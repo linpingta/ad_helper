@@ -1,0 +1,68 @@
+# LoRA Ad Creative Copy Generation System - Configuration
+
+model:
+  base_model: "Qwen/Qwen2.5-0.5B"  # Base model (smaller than Qwen3-0.6B for faster download)
+  cache_dir: "./models"              # Local model cache path
+  device: "auto"                     # auto/cuda/cpu
+
+lora:
+  r: 8                                # Low-rank dimension
+  lora_alpha: 16                      # Scaling coefficient
+  lora_dropout: 0.1                   # Dropout ratio
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+qlora:
+  enabled: true                       # Enable QLoRA 4-bit quantization
+  load_in_4bit: true
+  bnb_4bit_compute_dtype: "float16"
+  bnb_4bit_use_double_quant: true
+  bnb_4bit_quant_type: "nf4"
+
+training:
+  output_dir: "./output/lora_train"
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 2e-4
+  warmup_steps: 10
+  logging_steps: 10
+  save_steps: 50
+  eval_steps: 50
+  save_total_limit: 2
+
+dataset:
+  default_split_ratio: 0.8            # Train/val split ratio
+  supported_formats:
+    - "json"
+    - "jsonl"
+  required_fields:
+    - "source_content"
+    - "target_content"
+  optional_fields:
+    - "industry_tag"
+    - "copy_type"
+    - "source"
+
+generation:
+  max_new_tokens: 256
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  repetition_penalty: 1.1
+  batch_size: 10
+
+system:
+  db_path: "./data/ad_helper.db"
+  log_path: "./logs"
+  max_models: 10
+  session_timeout: 3600
+
+eval:
+  bleu_weight: [0.25, 0.25, 0.25, 0.25]
+  rouge_type: "rougeL"

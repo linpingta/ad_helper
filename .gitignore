@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env
+.venv
+
+# Models (downloaded from HuggingFace)
+models/
+output/
+*.bin
+*.safetensors
+*.gguf
+
+# Data (local storage)
+data/
+logs/
+*.db
+*.sqlite
+
+# Frontend
+node_modules/
+dist/
+*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp files
+*.tmp
+*.temp
+*.log
+nohup.out
+server.log
+
+# Generated mock data
+mock_dataset.json
+mock_dataset.jsonl
+dataset_stats.json
+
+# Misc
+*.egg-info/
+.coverage
+.pytest_cache/
+.mypy_cache/
