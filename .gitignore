@@ -55,3 +55,10 @@ dataset_stats.json
 .coverage
 .pytest_cache/
 .mypy_cache/
+
+# Claude settings (local)
+.claude/
+
+# Temp files in root
+goose-progress.md
+*需求文档*.md
